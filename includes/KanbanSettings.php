@@ -1,6 +1,6 @@
 <?php
 	/*
-		Kanban SQL class object
+		Kanban Settings SQL class object
 		DROP TABLE IF EXISTS KanbanSettings;
 		CREATE TABLE KanbanSettings
 		(
