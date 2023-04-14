@@ -44,8 +44,8 @@
 	    <div class="header">
 		    <div class="controls p-3">
 		        <form class="form-inline" style="padding-top:10px">
-					<input type="hidden" name="primaryid" id="primaryidInput" value="">
-					<input type="hidden" name="position" id="positionInput" value="">
+					<input type="text" name="primaryid" id="primaryidInput" value="">
+					<input type="text" name="position" id="positionInput" value="">
 
 		            <label for="titleInput">Title:</label>
 		            <input class="form-control form-control-sm" type="text" name="title" id="titleInput" autocomplete="off">

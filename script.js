@@ -24,28 +24,42 @@ $(document).ready(()=>{
     $('#add').click(()=>{
         const title = $('#titleInput').val()!==''?$('#titleInput').val():null;
         const description = $('#descriptionInput').val()!==''?$('#descriptionInput').val():null;
-        // $('#titleInput').val('');
-        // $('#descriptionInput').val('');
-        if(title) {// && description){
+        
+        if(title) {
             //let id = dataCards.config.maxid+1;
-            let id = (dataCards.cards).length
+            let id = (dataCards.cards).length;		//	Default NEW id/record...
+			let title = (($('.form-inline>#titleInput').val()) ? $('.form-inline>#titleInput').val() : "");
+			let description = (($('.form-inline>#descriptionInput').val()) ? $('.form-inline>#descriptionInput').val() : defColor);
+			let position = (($('.form-inline>#positionInput').val()) ? $('.form-inline>#positionInput').val() : defColor);
+			let saveaction = (($('.form-inline>#primaryidInput').val()) ? "update" : "add");
 
+            console.log("Pulling up the existing card for id="+id);
+            console.log(dataCards.cards[id]);
+            console.log("All cards:");
+            console.log(dataCards.cards);
+            console.log("--------------");
+            
 			//	Overwrite the ID if it's set (via edit)...
-			let existingid = $('.form-inline>#primaryidInput').val();
-			let existingposition = ((existingid) ? $('.form-inline>#positionInput').val() : defColor);
-			let saveaction = ((existingid) ? 'update' : 'add');
-
-			id = ((existingid) ? existingid : id);
-
-            const newCard = {
-                id,
-                title,
-                description,
-                position:existingposition,
-                priority: false
-            }
-            dataCards.cards.push(newCard);
-            dataCards.config.maxid = id;
+			if(saveaction == "update") {
+				id = $('.form-inline>#primaryidInput').val();
+				//	Now to update the existing card so it can be saved this way...
+				dataCards.cards[id].title = title;
+				dataCards.cards[id].description = description;
+				dataCards.cards[id].position = position;
+				
+			} else {
+	            const newCard = {
+	                id,
+	                title,
+	                description,
+	                position: position,
+	                priority: false
+	            }
+	            
+	            dataCards.cards.push(newCard);
+	            dataCards.config.maxid = id;
+			}
+			
             save(saveaction, id);
             //appendComponents(newCard);
             initializeCards();
@@ -281,6 +295,15 @@ function togglePriority(event){
 }
 
 function editCard(id){
+    console.log("editCard("+id+") - All cards:");
+    console.log(dataCards.cards);
+    console.log("--------------");
+    
+	$('.form-inline>#titleInput').val(dataCards.cards[id].title);
+	$('.form-inline>#descriptionInput').val(dataCards.cards[id].description);
+	$('.form-inline>#primaryidInput').val(dataCards.cards[id].id);
+	$('.form-inline>#positionInput').val(dataCards.cards[id].position);
+    /*
     dataCards.cards.forEach(card=>{
         if(card.id == id){
             let index = dataCards.cards.indexOf(card);
@@ -294,6 +317,7 @@ function editCard(id){
             //save('delete', id);
         }
     })
+    */
     //save('update', updateid);
 }
 

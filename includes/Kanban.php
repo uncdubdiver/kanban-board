@@ -5,7 +5,7 @@
 		CREATE TABLE Kanban
 		(
 			`primaryid` int primary key auto_increment,
-			`id` int NOT NULL,
+			`id` int NOT NULL COMMENT 'Used for json object position tracking',
 			`title` varchar(100) NOT NULL,
 			`description` varchar(255) default NULL,
 			`position` varchar(30) default 'yellow',
